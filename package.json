@@ -1,6 +1,6 @@
 {
-    "name": "delete-test-01",
-    "description": "delete-test-01-description",
+    "name": "smart",
+    "description": "A WeChat official account chatbot",
     "version": "0.0.1",
     "private": true,
     "dependencies": {
@@ -27,4 +27,3 @@
         ]
     }
 }
-
