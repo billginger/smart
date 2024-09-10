@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Parameters:
+  GptApiFreeKey:
+    Type: String
+    NoEcho: true
+
 Globals:
   Function:
     Runtime: nodejs18.x
@@ -10,6 +15,9 @@ Globals:
     Timeout: 100
     LoggingConfig:
       LogFormat: JSON
+    Environment:
+      Variables:
+        GptApiFreeKey: !Ref GptApiFreeKey
 
 Resources:
   wechatFunction:
