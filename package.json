@@ -1,0 +1,8 @@
+{
+  "name": "smart",
+  "version": "1.0.0",
+  "scripts": {
+    "invoke": "sam build && sam local invoke --env-vars env.json",
+    "deploy": "node -e \"const env = require('./env.json'); require('child_process').execSync(`sam deploy --parameter-overrides GptApiFreeKey=${env.Parameters.GptApiFreeKey}`, { stdio: 'inherit' });\""
+  }
+}
