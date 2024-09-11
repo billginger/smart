@@ -19,14 +19,14 @@ export const handler = async (event) => {
   const requestUrl = `${url}/v1/chat/completions`;
   const requestOptions = { method, headers, body };
   const res = await fetch(requestUrl, requestOptions);
-  if (res.ok) {
-    const data = await res.json();
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify({
-        content: data.choices[0].message.content,
-      })
-    };
-    return response;
-  }
+  const data = await res.json();
+  console.info('requested:', JSON.stringify(data));
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({
+      content: data.choices[0].message.content,
+    })
+  };
+  console.info('responsed:', response);
+  return response;
 }
