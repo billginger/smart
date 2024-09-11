@@ -7,14 +7,13 @@ headers.append('Authorization', `Bearer ${key}`);
 headers.append('Content-Type', 'application/json');
 
 export const handler = async (event) => {
+  console.info('received:', event);
+  const { content } = JSON.parse(event.body);
   const body = JSON.stringify({
-    "model": "gpt-3.5-turbo",
-    "messages": [{
-      "role": "system",
-      "content": "You are a helpful assistant."
-    }, {
-      "role": "user",
-      "content": "Hello!"
+    model: 'gpt-4o-mini',
+    messages: [{
+      role: 'user',
+      content
     }]
   });
   const requestUrl = `${url}/v1/chat/completions`;
@@ -22,14 +21,12 @@ export const handler = async (event) => {
   const res = await fetch(requestUrl, requestOptions);
   if (res.ok) {
     const data = await res.json();
-    console.log(data);
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        content: data.choices[0].message.content,
+      })
+    };
+    return response;
   }
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'hello world',
-    })
-  };
-
-  return response;
 }
