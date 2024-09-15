@@ -2,6 +2,9 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Parameters:
+  WechatToken:
+    Type: String
+    NoEcho: true
   GptApiFreeKey:
     Type: String
     NoEcho: true
@@ -17,13 +20,24 @@ Globals:
       LogFormat: JSON
     Environment:
       Variables:
+        WechatToken: !Ref WechatToken
         GptApiFreeKey: !Ref GptApiFreeKey
 
 Resources:
-  wechatFunction:
+  getFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/wechat.handler
+      Handler: src/handlers/get.handler
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /wechat
+            Method: GET
+  postFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/post.handler
       Policies:
       - DynamoDBCrudPolicy:
           TableName: !Ref SmartTable

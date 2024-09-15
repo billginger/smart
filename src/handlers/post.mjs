@@ -20,13 +20,13 @@ export const handler = async (event) => {
   const requestOptions = { method, headers, body };
   const res = await fetch(requestUrl, requestOptions);
   const data = await res.json();
-  console.info('requested:', JSON.stringify(data));
+  console.info('fetched:', JSON.stringify(data));
   const response = {
     statusCode: 200,
     body: JSON.stringify({
       content: data.choices[0].message.content,
     })
   };
-  console.info('responsed:', response);
+  console.info('sent:', response);
   return response;
 }
